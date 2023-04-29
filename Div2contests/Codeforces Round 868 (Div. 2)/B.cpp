@@ -46,21 +46,13 @@ double getCurrentTime() {
 void  solve() {
     int n, k; cin >> n >> k;
     vector<int> p(n);
-    map<int, vector<int>> mp;
-    forn(i, k) {
-        int j = i;
-        while (j < n) {
-            mp[i].pb(j + 1);
-            j += k;
-        }
-    }
     int c = 0;
     forn(i, n) {
         cin >> p[i];
-        if (lower_bound(all(mp[i % k]), p[i]) == mp[i % k].end() || *lower_bound(all(mp[i % k]), p[i]) != p[i]) ++c;
+        --p[i];
+        if (p[i] % k != i % k) ++c;
     }
-    if (!c) cout << 0 << '\n';
-    else cout << (c == 2 ? 1 : -1) << '\n';
+    cout << (c > 2 ? -1 : c / 2) << '\n';
 }
 
 
